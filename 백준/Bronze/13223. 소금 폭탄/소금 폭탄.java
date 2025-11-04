@@ -1,41 +1,30 @@
 import java.util.Scanner;
 
 class Main {
+    private static int calculateTimeInSecond(String[] time) {
+        int hour = Integer.parseInt(time[0]);
+        int minute = Integer.parseInt(time[1]);
+        int second = Integer.parseInt(time[2]);
+        
+        return hour * 3600 + minute * 60 + second;
+    }
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String currentTime = sc.nextLine();
-        String saltTime = sc.nextLine();
+        String[] currentTime = sc.nextLine().split(":");
+        String[] saltTime = sc.nextLine().split(":");
 
-        String[] currentSplited = currentTime.split(":");
-        String[] saltSplited = saltTime.split(":");
-        int[] currentSplitedInt = new int[3];
-        int[] saltSplitedInt = new int[3];
+        int currentTimeInSecond = calculateTimeInSecond(currentTime);
+        int saltTimeInSecond = calculateTimeInSecond(saltTime);
 
-        for (int i = 0; i < 3; i++) {
-            currentSplitedInt[i] = Integer.parseInt(currentSplited[i]);
-            saltSplitedInt[i] = Integer.parseInt(saltSplited[i]);
-        }
+        int needTimeInSecond = saltTimeInSecond - currentTimeInSecond;
+        if (needTimeInSecond <= 0)
+            needTimeInSecond += 24 * 3600;
 
-        int[] time = new int[3];
-        for (int i = 2; i >= 0; i--) {
-            time[i] = saltSplitedInt[i] - currentSplitedInt[i];
-            if (time[i] < 0 && i != 0) {
-                time[i] += 60;
-                saltSplitedInt[i - 1] -= 1;
-            } else if (time[i] <= 0 && i == 0) {
-                time[i] += 24;
-            }
-        }
+        int needHour = needTimeInSecond / 3600;
+        int needMinute = (needTimeInSecond % 3600) / 60;
+        int needSecond = needTimeInSecond % 60;
 
-        String answer = "";
-        for (int i = 0; i < 3; i++) {
-            if (time[i] < 10) {
-                answer += "0";
-            }
-            answer += time[i];
-            if (i != 2)
-                 answer += ":";
-        }
-        System.out.println(answer);
+        System.out.printf("%02d:%02d:%02d", needHour, needMinute, needSecond);
     }
 }
