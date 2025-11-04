@@ -6,15 +6,9 @@ class Main {
         String doc = sc.nextLine();
         String word = sc.nextLine();
 
-        int count = 0;
-        int startIndex = 0;
-        while (true) {
-            startIndex = doc.indexOf(word, startIndex);
-            if (startIndex < 0)
-                break;
-            count++;
-            startIndex += word.length();
-        }
+        String replaced = doc.replace(word, "");
+        int diff = doc.length() - replaced.length();
+        int count = diff / word.length();
 
         System.out.println(count);
     }
