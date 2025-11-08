@@ -10,32 +10,27 @@ class Main {
             castle[i] = sc.next().toCharArray();
         }
 
-        // 행에 대해서.
-        int blankRowCount = 0;
-        for (int i = 0; i < row; i++) {
-            boolean isFilled = false;
-            for (int j = 0; j < col; j++) {
-                if (castle[i][j] == 'X') {
-                    isFilled = true;
-                    break;
+        boolean[] filledRow = new boolean[row];
+        boolean[] filledCol = new boolean[col];
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c < col; c++) {
+                if (castle[r][c] == 'X') {
+                    filledRow[r] = true;
+                    filledCol[c] = true;
                 }
             }
-            if (!isFilled)
-                blankRowCount++;
         }
 
-        // 열에 대해서.
-        int blankColCount = 0;
-        for (int i = 0; i < col; i++) {
-            boolean isFilled = false;
-            for (int j = 0; j < row; j++) {
-                if (castle[j][i] == 'X') {
-                    isFilled = true;
-                    break;
-                }
-            }
-            if (!isFilled)
-                blankColCount++;
+        int blankRowCount = row;
+        for (int r = 0; r < row; r++) {
+            if (filledRow[r])
+                blankRowCount--;
+        }
+
+        int blankColCount = col;
+        for (int c = 0; c < col; c++) {
+            if (filledCol[c])
+                blankColCount--;
         }
 
         System.out.println(Math.max(blankRowCount, blankColCount));
