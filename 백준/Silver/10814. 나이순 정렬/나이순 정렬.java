@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Member implements Comparable<Member> {
@@ -25,16 +24,15 @@ class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        ArrayList<Member> members = new ArrayList<>();
+        Member[] members = new Member[N];
+
         for (int i = 0; i < N; i++) {
-            int age = sc.nextInt();
-            String name = sc.next();
-            members.add(new Member(age, name, i));
+            members[i] = new Member(sc.nextInt(), sc.next(), i);
         }
-        members.sort(Comparator.naturalOrder());
+        Arrays.sort(members);
 
         for (Member m : members) {
-            System.out.printf("%d %s%n", m.age, m.name);
+            System.out.println(m.age + " " + m.name);
         }
     }
 }
