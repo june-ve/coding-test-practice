@@ -1,25 +1,25 @@
-import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        String[][] records = new String[N][2];
+        Set<String> set = new TreeSet<>();
 
-        for (int i = 0; i < N; i++) {
-            records[i][0] = sc.next();
-            records[i][1] = sc.next();
-        }
-
-        Arrays.sort(records, (o1, o2) -> o2[0].compareTo(o1[0]));
-
-        for (int i = 0; i < N - 1; i++) {
-            if (records[i][1].equals("enter") && !records[i][0].equals(records[i + 1][0])) {
-                System.out.println(records[i][0]);
+        while (N-- > 0) {
+            String name = sc.next();
+            if (sc.next().equals("enter")) {
+                set.add(name);
+            } else {
+                set.remove(name);
             }
         }
-        if (records[N - 1][1].equals("enter"))
-            System.out.println(records[N - 1][0]);
+
+        String[] names = set.toArray(new String[set.size()]);
+        for (int i = names.length - 1; i >= 0; i--) {
+            System.out.println(names[i]);
+        }
     }
 }
